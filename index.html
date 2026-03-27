@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>President Landscaping | Professional Landscaping in Acton, MA</title>
+  <meta name="description" content="Family-owned landscaping company in Acton, MA. Lawn care, tree removal, spring clean-up, and more. Licensed & insured. Free estimates.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Syne:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #FEFCF8;
+      color: #1E2A1A;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    :root {
+      --forest: #1F3B2C;
+      --sage: #6A7A5C;
+      --warm-stone: #E8E0D5;
+      --cream: #FFF9F0;
+      --terracotta: #C17A4A;
+      --terracotta-light: #D69360;
+      --gold: #C5A15B;
+      --charcoal: #2C2E2A;
+      --radius-card: 20px;
+      --transition: all 0.3s ease;
+    }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+    section { padding: 80px 0; }
+    h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; letter-spacing: -0.01em; }
+    h2 { font-size: clamp(2rem, 5vw, 3.2rem); margin-bottom: 16px; color: var(--forest); }
+    h2 em { font-style: italic; color: var(--terracotta); }
+    .section-tag {
+      display: inline-block;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--terracotta);
+      background: rgba(193,122,74,0.1);
+      padding: 5px 12px;
+      border-radius: 40px;
+      margin-bottom: 16px;
+    }
+    .btn-primary {
+      background: var(--terracotta);
+      padding: 12px 32px;
+      border-radius: 40px;
+      color: white;
+      text-decoration: none;
+      font-weight: 700;
+      font-family: 'Syne', sans-serif;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary:hover { background: var(--terracotta-light); transform: translateY(-2px); }
+    .btn-outline {
+      border: 1px solid var(--terracotta);
+      padding: 12px 28px;
+      border-radius: 40px;
+      color: var(--terracotta);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      background: transparent;
+      cursor: pointer;
+    }
+    .btn-outline:hover { background: var(--terracotta); color: white; }
+
+    /* Top Bar */
+    .top-bar { background: var(--forest); color: var(--cream); font-size: 0.8rem; padding: 10px 0; }
+    .top-bar .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .top-bar a { color: var(--gold); text-decoration: none; font-weight: 600; }
+
+    /* Nav */
+    .nav { position: sticky; top: 0; z-index: 100; background: rgba(255,249,240,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(31,59,44,0.08); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 80px; }
+    .logo img { height: 58px; width: auto; object-fit: contain; }
+    .nav-links { display: flex; gap: 24px; list-style: none; }
+    .nav-links a { text-decoration: none; font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; color: var(--charcoal); transition: var(--transition); cursor: pointer; }
+    .nav-links a:hover { color: var(--terracotta); }
+    .btn-call { background: var(--terracotta); color: white !important; padding: 8px 20px; border-radius: 40px; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; }
+    .hamburger span { width: 26px; height: 2px; background: var(--forest); transition: 0.2s; }
+    .mobile-nav { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--forest); z-index: 99; padding: 100px 32px 48px; overflow-y: auto; }
+    .mobile-nav-links { list-style: none; }
+    .mobile-nav-links li a { display: block; padding: 14px 0; font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 600; color: var(--cream); text-decoration: none; border-bottom: 1px solid rgba(255,255,240,0.1); cursor: pointer; }
+
+    /* Hero Carousel */
+    .hero { position: relative; min-height: 88vh; display: flex; align-items: flex-end; overflow: hidden; }
+    .hero-slides { position: absolute; inset: 0; }
+    .hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s ease; }
+    .hero-slide.active { opacity: 1; }
+    .hero-slide-bg { width: 100%; height: 100%; background-size: cover; background-position: center 35%; transform: scale(1.05); transition: transform 8s ease; }
+    .hero-slide.active .hero-slide-bg { transform: scale(1); }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(31,59,44,0.78) 0%, rgba(31,59,44,0.25) 50%, rgba(0,0,0,0.1) 100%); }
+    .carousel-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,240,0.2); backdrop-filter: blur(6px); border: none; width: 42px; height: 42px; border-radius: 50%; cursor: pointer; z-index: 15; color: white; transition: 0.2s; }
+    .carousel-arrow:hover { background: rgba(193,122,74,0.7); }
+    .carousel-prev { left: 20px; }
+    .carousel-next { right: 20px; }
+    .carousel-dots { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); display: flex; gap: 12px; z-index: 15; }
+    .dot { width: 8px; height: 8px; background: rgba(255,255,240,0.5); border-radius: 50%; cursor: pointer; }
+    .dot.active { background: var(--gold); width: 24px; border-radius: 20px; }
+    .hero-content { position: relative; z-index: 10; max-width: 1280px; margin: 0 auto; padding: 0 28px 70px; width: 100%; display: grid; grid-template-columns: 1fr 380px; gap: 48px; align-items: end; }
+    .hero-text h1 { font-size: clamp(2.6rem, 5vw, 4.8rem); color: white; line-height: 1.1; text-shadow: 0 2px 12px rgba(0,0,0,0.2); margin-bottom: 20px; }
+    .hero-text p { font-size: 1rem; color: rgba(255,250,235,0.9); max-width: 520px; margin-bottom: 28px; line-height: 1.5; }
+    .hero-card { background: rgba(255,249,240,0.96); backdrop-filter: blur(8px); border-radius: 28px; padding: 28px; }
+    .hero-card h3 { font-family: 'Syne', sans-serif; font-size: 1.2rem; margin-bottom: 18px; }
+    .hero-form input, .hero-form select { width: 100%; padding: 12px; margin-bottom: 12px; border: 1px solid #ddd; border-radius: 60px; background: white; font-family: 'Inter', sans-serif; }
+    .hero-form button { width: 100%; background: var(--forest); color: white; border: none; padding: 12px; border-radius: 60px; font-weight: bold; cursor: pointer; font-family: 'Syne', sans-serif; }
+    .trust-strip { background: var(--warm-stone); padding: 16px 0; }
+    .trust-flex { display: flex; justify-content: center; flex-wrap: wrap; gap: 32px; }
+    .trust-item { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: 600; color: var(--forest); }
+    .pain-section { background: var(--cream); }
+    .pain-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .pain-list { list-style: none; margin-top: 24px; }
+    .pain-list li { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; font-size: 1rem; }
+    .check-icon { background: var(--terracotta); width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: white; font-size: 12px; flex-shrink: 0; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 48px; max-width: 1100px; margin-left: auto; margin-right: auto; }
+    .service-card { background: white; border-radius: 28px; overflow: hidden; box-shadow: 0 12px 28px -8px rgba(0,0,0,0.08); transition: var(--transition); }
+    .service-card:hover { transform: translateY(-6px); }
+    .service-img { width: 100%; height: 240px; object-fit: cover; background: var(--warm-stone); }
+    .service-content { padding: 28px; }
+    .service-content h3 { font-family: 'Syne', sans-serif; font-size: 1.3rem; margin-bottom: 12px; }
+    .why-section { background: var(--forest); margin: 20px 0; }
+    .why-section .container { padding: 80px 28px; }
+    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+    .why-grid h2, .why-grid h2 em { color: white; }
+    .why-grid .section-tag { background: rgba(197,161,91,0.2); color: var(--gold); }
+    .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 32px; }
+    .stat-card { background: rgba(255,255,240,0.08); padding: 24px; border-radius: 24px; text-align: center; }
+    .stat-number { font-size: 2.5rem; font-weight: 700; color: var(--gold); font-family: 'Cormorant Garamond', serif; }
+    .diff-list { list-style: none; }
+    .diff-list li { display: flex; gap: 16px; margin-bottom: 28px; }
+    .diff-icon { font-size: 1.5rem; }
+    .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 48px; text-align: center; }
+    .step-card { background: var(--warm-stone); padding: 32px 20px; border-radius: 28px; }
+    .step-num { width: 48px; height: 48px; background: var(--terracotta); color: white; border-radius: 60px; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-weight: bold; font-size: 1.2rem; }
+    .reviews-parallax { background-image: url('https://images.pexels.com/photos/2069852/pexels-photo-2069852.jpeg?auto=compress&cs=tinysrgb&w=1600'); background-attachment: fixed; background-size: cover; background-position: center; position: relative; }
+    .reviews-overlay { background: rgba(31,59,44,0.85); padding: 80px 0; }
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 40px; }
+    .review-card { background: rgba(255,255,245,0.95); border-radius: 24px; padding: 24px; }
+    .stars { color: var(--gold); margin-bottom: 12px; letter-spacing: 2px; }
+    .areas-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+    .area-badge { background: var(--warm-stone); padding: 10px 24px; border-radius: 60px; font-weight: 600; }
+    .footer { background: #1C2A1A; color: #ccc; padding: 64px 0 32px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; }
+    .footer-logo img { height: 50px; margin-bottom: 16px; }
+    .footer-links a { color: #bbb; text-decoration: none; display: block; margin-bottom: 8px; }
+    .footer-links a:hover { color: var(--gold); }
+    .messenger-fab { position: fixed; bottom: 24px; right: 24px; background: #0084ff; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 99; text-decoration: none; transition: transform 0.2s; }
+    .messenger-fab:hover { transform: scale(1.05); }
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero-content { grid-template-columns: 1fr; gap: 32px; }
+      .pain-grid, .why-grid, .footer-grid, .reviews-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); max-width: 100%; }
+    }
+    @media (max-width: 640px) {
+      .process-steps { grid-template-columns: 1fr; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+    }
+    .reveal { opacity: 0; transform: translateY(20px); transition: 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .form-success { display: none; text-align: center; padding: 16px; background: rgba(31,59,44,0.1); border-radius: 60px; margin-top: 12px; color: var(--forest); }
+  </style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="container">
+    <span>🌿 Serving Acton, Littleton, Sudbury, Westford, Concord & Harvard, MA</span>
+    <a href="tel:+17744772147">📞 (774) 477-2147</a>
+    <span>Mon–Sat 6am–7pm</span>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="container nav-inner">
+    <a href="#" class="logo">
+      <img src="logo.png" alt="President Landscaping Logo">
+    </a>
+    <ul class="nav-links">
+      <li><a data-scroll="services">Services</a></li>
+      <li><a data-scroll="areas">Areas</a></li>
+      <li><a data-scroll="reviews">Reviews</a></li>
+      <li><a data-scroll="about">About</a></li>
+      <li><a data-scroll="contact">Contact</a></li>
+      <li><a href="tel:+17744772147" class="btn-call">Call Now</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-nav" id="mobileNav">
+  <ul class="mobile-nav-links">
+    <li><a data-scroll="services">Services</a></li>
+    <li><a data-scroll="areas">Areas</a></li>
+    <li><a data-scroll="reviews">Reviews</a></li>
+    <li><a data-scroll="about">About</a></li>
+    <li><a data-scroll="contact">Contact</a></li>
+    <li><a href="tel:+17744772147" style="color:var(--gold);">Call (774) 477-2147</a></li>
+  </ul>
+</div>
+
+<section class="hero">
+  <div class="hero-slides" id="heroSlides">
+    <div class="hero-slide active">
+      <div class="hero-slide-bg" style="background-image: url('hero-1.jpg');"></div>
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-slide">
+      <div class="hero-slide-bg" style="background-image: url('hero-2.jpg');"></div>
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-slide">
+      <div class="hero-slide-bg" style="background-image: url('hero-3.jpg');"></div>
+      <div class="hero-overlay"></div>
+    </div>
+  </div>
+  <button class="carousel-arrow carousel-prev" id="prevBtn">‹</button>
+  <button class="carousel-arrow carousel-next" id="nextBtn">›</button>
+  <div class="carousel-dots" id="carouselDots"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1>Professional Landscaping <em>in Acton, Massachusetts</em></h1>
+      <p>Family-owned, licensed & insured. From weekly lawn care to tree removal — we show up on time, do the job right, and follow up until you're happy.</p>
+      <div class="hero-buttons">
+        <a href="tel:+17744772147" class="btn-primary">📞 Call (774) 477-2147</a>
+        <a href="#contact" class="btn-outline" data-scroll="contact">Get Free Estimate</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <h3>Request a Free Estimate</h3>
+      <form class="hero-form" id="heroForm">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="tel" name="phone" placeholder="Phone Number" required>
+        <input type="email" name="email" placeholder="Email Address">
+        <select name="service">
+          <option value="">Select a Service</option>
+          <option>Lawn Care Service</option>
+          <option>Lawn Maintenance</option>
+          <option>Landscaping</option>
+          <option>Spring Clean Up</option>
+          <option>Tree Removal</option>
+          <option>Tree Pruning</option>
+        </select>
+        <button type="submit">Send Request →</button>
+        <div class="form-success" id="heroFormSuccess">✓ Thanks! We'll be in touch shortly.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div class="trust-strip">
+  <div class="container trust-flex">
+    <span class="trust-item">✓ Licensed & Insured</span>
+    <span class="trust-item">✓ Family Owned</span>
+    <span class="trust-item">✓ 5-Star Rated on Google</span>
+    <span class="trust-item">✓ Satisfaction Guaranteed</span>
+  </div>
+</div>
+
+<section id="about">
+  <div class="container pain-grid">
+    <div>
+      <div class="section-tag reveal">Looking For a Landscaper?</div>
+      <h2 class="reveal">We Solve the Problems <em>Other Crews Leave Behind</em></h2>
+      <ul class="pain-list reveal">
+        <li><span class="check-icon">✓</span> Tired of crews that don't show up when they say they will?</li>
+        <li><span class="check-icon">✓</span> Paying for lawn care that leaves your yard looking average?</li>
+        <li><span class="check-icon">✓</span> Need spring clean-up or tree work done right — the first time?</li>
+        <li><span class="check-icon">✓</span> Can't get a straight answer on price before work starts?</li>
+        <li><span class="check-icon">✓</span> Worried about subcontractors doing the job instead of the owner?</li>
+        <li><span class="check-icon">✓</span> Looking for a local Acton company — not a national franchise?</li>
+      </ul>
+      <a href="tel:+17744772147" class="btn-primary" style="margin-top:24px; display:inline-block;">Get a Free Quote Today</a>
+    </div>
+    <div class="reveal">
+      <img src="about-image.jpg" alt="Landscaping crew at work" style="width:100%; border-radius: 28px; box-shadow: 0 20px 30px -12px rgba(0,0,0,0.1);">
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="container">
+    <div class="section-tag reveal">What We Do</div>
+    <h2 class="reveal">Complete Outdoor Care <em>for Acton Homeowners</em></h2>
+    <div class="services-grid">
+      <div class="service-card reveal"><img class="service-img" src="service-lawn-care.jpg" alt="Lawn care"><div class="service-content"><h3>Lawn Care Service</h3><p>Professional lawn care designed to keep your yard healthy and well-maintained. Consistent results, clear communication.</p></div></div>
+      <div class="service-card reveal"><img class="service-img" src="service-lawn-maintenance.jpg" alt="Lawn maintenance"><div class="service-content"><h3>Lawn Maintenance</h3><p>Ongoing mowing, edging, and cleanup. Dependable service with attention to detail on every visit.</p></div></div>
+      <div class="service-card reveal"><img class="service-img" src="service-landscaping.jpg" alt="Landscaping"><div class="service-content"><h3>Landscaping</h3><p>Complete landscaping services to improve the look and organization of your outdoor space.</p></div></div>
+      <div class="service-card reveal"><img class="service-img" src="service-spring-cleanup.jpg" alt="Spring clean up"><div class="service-content"><h3>Spring Clean Up</h3><p>Removes debris and buildup after winter. Perfect seasonal reset for your property.</p></div></div>
+      <div class="service-card reveal"><img class="service-img" src="service-tree-removal.jpg" alt="Tree removal"><div class="service-content"><h3>Tree Removal</h3><p>Safe, controlled removal for damaged or risky trees. Clear estimates before we start.</p></div></div>
+      <div class="service-card reveal"><img class="service-img" src="service-tree-pruning.jpg" alt="Tree pruning"><div class="service-content"><h3>Tree Pruning Service</h3><p>Professional pruning to improve tree health, structure, and appearance.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="why-section">
+  <div class="container why-grid">
+    <div>
+      <div class="section-tag reveal">Why President Landscaping</div>
+      <h2 class="reveal">We Don't Just Cut Grass. <em>We Earn Your Trust.</em></h2>
+      <div class="stats reveal">
+        <div class="stat-card"><div class="stat-number">150+</div><div>Jobs Completed</div></div>
+        <div class="stat-card"><div class="stat-number">5★</div><div>Google Rating</div></div>
+        <div class="stat-card"><div class="stat-number">6</div><div>Towns Served</div></div>
+        <div class="stat-card"><div class="stat-number">100%</div><div>Satisfaction</div></div>
+      </div>
+    </div>
+    <ul class="diff-list reveal">
+      <li><div class="diff-icon">📋</div><div><strong>Clear estimates before any work starts</strong><br>No mystery charges. We explain exactly what we'll do and what it costs.</div></li>
+      <li><div class="diff-icon">👥</div><div><strong>Our own crew — not subcontractors</strong><br>You get the same experienced team every visit.</div></li>
+      <li><div class="diff-icon">✅</div><div><strong>Follow-up after every job</strong><br>Not happy? We come back free. That's our guarantee.</div></li>
+      <li><div class="diff-icon">📍</div><div><strong>Truly local — based in Acton</strong><br>Fast response times and real accountability.</div></li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-tag reveal" style="text-align:center;">How It Works</div>
+    <h2 class="reveal" style="text-align:center;">From First Call to <em>Done Deal</em></h2>
+    <div class="process-steps">
+      <div class="step-card reveal"><div class="step-num">1</div><h3>Call or Text Us</h3><p>(774) 477-2147 — tell us what you need and where you're located.</p></div>
+      <div class="step-card reveal"><div class="step-num">2</div><h3>Free On-Site Visit</h3><p>We assess your property and give a clear, honest estimate.</p></div>
+      <div class="step-card reveal"><div class="step-num">3</div><h3>We Do the Work</h3><p>Our crew handles everything — on schedule, with full attention to detail.</p></div>
+      <div class="step-card reveal"><div class="step-num">4</div><h3>You Enjoy the Result</h3><p>We follow up. Not satisfied? We come back free.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="reviews" class="reviews-parallax">
+  <div class="reviews-overlay">
+    <div class="container">
+      <div class="section-tag reveal" style="background:rgba(197,161,91,0.2); color:var(--gold);">What Customers Say</div>
+      <h2 class="reveal" style="color:white;">5-Star Reviews <em>from Acton Homeowners</em></h2>
+      <div class="reviews-grid">
+        <div class="review-card reveal"><div class="stars">★★★★★</div><p>"President Landscaping did a fantastic job on our spring clean-up. Showed up exactly when they said, worked efficiently, yard looks incredible."</p><p style="margin-top:12px;"><strong>Jennifer M.</strong> — Acton, MA</p></div>
+        <div class="review-card reveal"><div class="stars">★★★★★</div><p>"Had a large tree that needed removal. They explained everything, executed cleanly, and left the property spotless. Highly recommend."</p><p style="margin-top:12px;"><strong>Robert T.</strong> — Westford, MA</p></div>
+        <div class="review-card reveal"><div class="stars">★★★★★</div><p>"Great communication from start to finish. No upselling, just honest advice. The lawn looks better than it has in years."</p><p style="margin-top:12px;"><strong>Sarah C.</strong> — Concord, MA</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="areas">
+  <div class="container">
+    <div class="section-tag reveal">Where We Work</div>
+    <h2 class="reveal">Serving <em>MetroWest Massachusetts</em></h2>
+    <div class="areas-grid reveal">
+      <span class="area-badge">Acton, MA</span>
+      <span class="area-badge">Littleton, MA</span>
+      <span class="area-badge">Sudbury, MA</span>
+      <span class="area-badge">Westford, MA</span>
+      <span class="area-badge">Concord, MA</span>
+      <span class="area-badge">Harvard, MA</span>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="background: var(--warm-stone);">
+  <div class="container" style="max-width: 800px; text-align: center;">
+    <div class="section-tag reveal">Get Started Today</div>
+    <h2 class="reveal">Ready for a Yard <em>You're Proud Of?</em></h2>
+    <p class="reveal" style="margin-bottom: 32px;">Call or text us for a free, no-pressure estimate. We serve Acton and surrounding towns. Monday–Saturday, 6am–7pm.</p>
+    <a href="tel:+17744772147" class="btn-primary" style="margin-right: 16px;">📞 Call (774) 477-2147</a>
+    <a href="sms:+17744772147" class="btn-outline">✉️ Text Us</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="footer-logo"><img src="logo.png" alt="President Landscaping Logo"></div>
+      <p style="margin-top: 12px;">Family-owned landscaping company based in Acton, MA. Professional lawn care, tree service, and outdoor maintenance.</p>
+    </div>
+    <div><h4 style="color:var(--gold);">Services</h4><div class="footer-links"><a data-scroll="services">Lawn Care</a><a data-scroll="services">Tree Removal</a><a data-scroll="services">Landscaping</a></div></div>
+    <div><h4 style="color:var(--gold);">Areas</h4><div class="footer-links"><a>Acton</a><a>Littleton</a><a>Sudbury</a><a>Concord</a></div></div>
+    <div><h4 style="color:var(--gold);">Contact</h4><p>📞 <a href="tel:+17744772147" style="color:#ccc;">(774) 477-2147</a></p><p>📍 Acton, MA 01720</p><p>📧 landscapingpresident@gmail.com</p></div>
+  </div>
+  <div class="container" style="text-align:center; margin-top: 48px; border-top: 1px solid rgba(255,255,240,0.1); padding-top: 32px;"><p>© 2026 President Landscaping. All rights reserved.</p></div>
+</footer>
+
+<a href="https://m.me/61566835607465" class="messenger-fab" target="_blank" rel="noopener">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.477 2 2 6.145 2 11.243c0 2.908 1.436 5.506 3.687 7.205V22l3.374-1.853C10.024 20.38 11 20.5 12 20.5c5.523 0 10-4.145 10-9.257S17.523 2 12 2z"/></svg>
+</a>
+
+<script>
+  // Smooth scroll
+  document.querySelectorAll('[data-scroll]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.getElementById(btn.getAttribute('data-scroll'));
+      if(target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.getElementById('mobileNav').style.display = 'none';
+      document.getElementById('hamburger')?.classList.remove('open');
+    });
+  });
+  // Mobile menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+  hamburger?.addEventListener('click', () => {
+    const isOpen = mobileNav.style.display === 'block';
+    mobileNav.style.display = isOpen ? 'none' : 'block';
+    hamburger.classList.toggle('open', !isOpen);
+  });
+  // Hero carousel
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.hero-slide');
+  const dotsContainer = document.getElementById('carouselDots');
+  slides.forEach((_, i) => { const dot = document.createElement('div'); dot.classList.add('dot'); if(i===0) dot.classList.add('active'); dot.addEventListener('click',()=>goToSlide(i)); dotsContainer.appendChild(dot); });
+  function goToSlide(index) { slides[currentSlide].classList.remove('active'); dotsContainer.children[currentSlide].classList.remove('active'); currentSlide = (index + slides.length) % slides.length; slides[currentSlide].classList.add('active'); dotsContainer.children[currentSlide].classList.add('active'); }
+  document.getElementById('prevBtn')?.addEventListener('click',()=>goToSlide(currentSlide-1));
+  document.getElementById('nextBtn')?.addEventListener('click',()=>goToSlide(currentSlide+1));
+  setInterval(()=>goToSlide(currentSlide+1), 5000);
+  // Form simulation (replace with Web3Forms key)
+  document.getElementById('heroForm')?.addEventListener('submit', async(e) => { e.preventDefault(); const successDiv = document.getElementById('heroFormSuccess'); successDiv.style.display = 'block'; e.target.reset(); setTimeout(()=>successDiv.style.display='none',3000); });
+  // Reveal on scroll
+  const observer = new IntersectionObserver(entries=>entries.forEach(e=>e.target.classList.add('visible')),{threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
